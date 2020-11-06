@@ -20,6 +20,7 @@ let shouldNavigateAway = false;
 async function initExercise() {
   let workout;
 
+  // If search in url path is undefined, create a new workout in POST request to server
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
     console.log(workout)
@@ -32,6 +33,7 @@ async function initExercise() {
 
 initExercise();
 
+// Function to display either the cardio drop down list or resistance drop down list
 function handleWorkoutTypeChange(event) {
   workoutType = event.target.value;
 
@@ -49,6 +51,8 @@ function handleWorkoutTypeChange(event) {
   validateInputs();
 }
 
+// Validates all fields are filled for resistance or cardio workouts. 
+// If validated, the complete and add exercise button will enable.
 function validateInputs() {
   let isValid = true;
 
@@ -95,6 +99,8 @@ function validateInputs() {
   }
 }
 
+// Creates object with info for entered cardio or resistance workout.
+// Then adds the workout
 async function handleFormSubmit(event) {
   event.preventDefault();
 
