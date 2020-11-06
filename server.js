@@ -26,6 +26,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 // Route for adding workout
 
 // Route for getting last workout to continue
+app.get("/", (req, res) => {
+  db.Workout.find({})
+    .populate("exercises")
+    .then(workouts => {
+      let lastWorkout = workouts[workouts.length - 1]
+      res.json(lastWorkout);
+    })
+})
 
 // Route for getting workouts in range/ all workout data
 // /api/workouts/range
