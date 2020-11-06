@@ -22,11 +22,23 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 // =============================================================
 
 // Route for adding exercise
+app.put("/api/workouts/:id", (req, res) => {
+  db.Workout.update({ _id: ObjectId() })
+})
 
 // Route for adding workout
 
 // Route for getting last workout to continue
-app.get("/", (req, res) => {
+// app.get("/", (req, res) => {
+//   db.Workout.find({})
+//     .populate("exercises")
+//     .then(workouts => {
+//       let lastWorkout = workouts[workouts.length - 1]
+//       res.json(lastWorkout);
+//     });
+// });
+
+app.get("/api/workouts", (req, res) => {
   db.Workout.find({})
     .populate("exercises")
     .then(workouts => {
