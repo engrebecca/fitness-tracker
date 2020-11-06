@@ -21,7 +21,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 // Routes
 // =============================================================
 
-// Route for /exercise to display all workouts
+// Route for adding exercise
+
+// Route for adding workout
+
+// Route for getting last workout to continue
+
+// Route for getting workouts in range/ all workout data
+// /api/workouts/range
 
 // Starts the server to begin listening
 // =============================================================
