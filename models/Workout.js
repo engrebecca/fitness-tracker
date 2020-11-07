@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Exercise = require("./Exercise");
 const Schema = mongoose.Schema;
 
 const ExerciseSchema = new Schema({
@@ -13,7 +12,7 @@ const ExerciseSchema = new Schema({
 });
 
 const WorkoutSchema = new Schema({
-    date: Date,
+    day: Date,
     exercises: [
         ExerciseSchema
     ]

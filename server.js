@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const path = require("path")
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,33 +24,48 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 
 // Route for adding exercise
 app.put("/api/workouts/:id", (req, res) => {
-  db.Workout.update({ _id: ObjectId() })
+  const { id } = req.params
+  db.Workout.findByIdAndUpdate(id, { $push: { exercises: req.body } })
+    .then(workout => {
+      res.json(workout);
+    })
 })
 
 // Route for adding workout
+app.post("/api/workouts", (req, res) => {
+  db.Workout.create(req.body)
+    .then(workouts => {
+      res.json(workouts);
+    })
+})
 
 // Route for getting last workout to continue
-// app.get("/", (req, res) => {
-//   db.Workout.find({})
-//     .populate("exercises")
-//     .then(workouts => {
-//       let lastWorkout = workouts[workouts.length - 1]
-//       res.json(lastWorkout);
-//     });
-// });
-
 app.get("/api/workouts", (req, res) => {
-  db.Workout.find({})
-    .populate("exercises")
+  db.Workout.find({}).sort({ day: -1 })
     .then(workouts => {
-      let lastWorkout = workouts[workouts.length - 1]
-      res.json(lastWorkout);
+      res.json(workouts);
     })
 })
 
 // Route for getting workouts in range/ all workout data
-// /api/workouts/range
+app.get("/api/workouts/range", (req, res) => {
+  db.Workout.find({ day: { $gte: new Date().setDate(new Date().getDate() - 7) } }).sort({ day: -1 })
+    .then(workouts => {
+      res.json(workouts);
+    })
+})
 
+app.get("/", (req, res) => {
+  res.sendFile("./public/index.html")
+});
+
+app.get("/exercise", (req, res) => {
+  res.sendFile("./public/exercise.html")
+})
+
+app.get("/stats", (req, res) => {
+  res.sendFile("./public/stats.html")
+})
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, () => {
