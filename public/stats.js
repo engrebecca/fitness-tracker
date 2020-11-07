@@ -205,9 +205,19 @@ function calculateTotalWeight(data) {
   let total = [];
 
   data.forEach(workout => {
+    let dayWeight = 0;
     workout.exercises.forEach(exercise => {
-      total.push(exercise.weight);
+      if (exercise.weight) {
+        // let dayWeight = workout.exercises.reduce((sum, exercise) => sum + exercise.weight, 0)
+        // total.push(dayWeight);
+        dayWeight += (exercise.weight)
+      };
     });
+    total.push(dayWeight);
+
+    // workout.exercises.forEach(exercise => {
+    //   total.push(exercise.weight);
+    // });
   });
 
   return total;
