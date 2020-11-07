@@ -37,6 +37,7 @@ function populateChart(data) {
   let durations = duration(data);
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
+  // let exerciseTime = calcExerciseTime(data);
   const colors = generatePalette();
 
   let line = document.querySelector("#canvas").getContext("2d");
@@ -154,6 +155,7 @@ function populateChart(data) {
           label: "Excercises Performed",
           backgroundColor: colors,
           data: durations
+          // data: Object.values(exerciseTime)
         }
       ]
     },
@@ -184,7 +186,7 @@ function populateChart(data) {
       }
     }
   });
-}
+};
 
 // Function to calculate total duration of each day's workout
 function duration(data) {
@@ -197,7 +199,7 @@ function duration(data) {
 
   // Return an array of each workout's total duration
   return durations;
-}
+};
 
 // Function to calculate total weight of each day's workout
 function calculateTotalWeight(data) {
@@ -215,17 +217,31 @@ function calculateTotalWeight(data) {
   });
 
   return total;
-}
+};
 
 function workoutNames(data) {
   let workouts = [];
-
+  // Go through each workout and add workout type/name to the workouts array if it's not already captured
   data.forEach(workout => {
     workout.exercises.forEach(exercise => {
       if (workouts.indexOf(exercise.name) === -1)
         workouts.push(exercise.name);
     });
   });
-
   return workouts;
-}
+};
+
+// function calcExerciseTime() {
+//   let exerciseTime = {};
+//   // Go through each workout and add workout type/name to the workouts array if it's not already captured
+//   data.forEach(workout => {
+//     workout.exercises.forEach(exercise => {
+//       if (exerciseTime[exercise.type]) {
+//         exerciseTime[exercise.type] = exerciseTime[exercise.type] + exercise.duration
+//       } else {
+//         exerciseTime[exercise.type] = exercise.duration;
+//       }
+//     });
+//   });
+//   return exerciseTime;
+// };

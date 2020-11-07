@@ -47,7 +47,7 @@ app.post("/api/workouts", (req, res) => {
 // Route for getting last workout to continue, from index.js front end
 app.get("/api/workouts", (req, res) => {
   // Find all workouts in the Workout collection, then sort in descending order by day
-  db.Workout.find({}).sort({ day: -1 })
+  db.Workout.find({}).sort({ day: 1 })
     .then(workouts => {
       res.json(workouts);
     })
