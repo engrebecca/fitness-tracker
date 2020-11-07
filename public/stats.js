@@ -186,38 +186,32 @@ function populateChart(data) {
   });
 }
 
+// Function to calculate total duration of each day's workout
 function duration(data) {
   let durations = [];
   // For each workout, calculate the sum duration of exercises and push to the durations array.
   data.forEach(workout => {
     let dayDuration = workout.exercises.reduce((sum, exercise) => sum + exercise.duration, 0)
     durations.push(dayDuration);
-    // workout.exercises.forEach(exercise => {
-    //   durations.push(exercise.duration);
-    // });
   });
 
   // Return an array of each workout's total duration
   return durations;
 }
 
+// Function to calculate total weight of each day's workout
 function calculateTotalWeight(data) {
   let total = [];
-
+  // Calculate the total weight for each workout by adding all exercise weights for a day. 
+  // Push them to the total array which stores total weight for each day of the week.
   data.forEach(workout => {
     let dayWeight = 0;
     workout.exercises.forEach(exercise => {
       if (exercise.weight) {
-        // let dayWeight = workout.exercises.reduce((sum, exercise) => sum + exercise.weight, 0)
-        // total.push(dayWeight);
         dayWeight += (exercise.weight)
       };
     });
     total.push(dayWeight);
-
-    // workout.exercises.forEach(exercise => {
-    //   total.push(exercise.weight);
-    // });
   });
 
   return total;
@@ -228,7 +222,8 @@ function workoutNames(data) {
 
   data.forEach(workout => {
     workout.exercises.forEach(exercise => {
-      workouts.push(exercise.name);
+      if (workouts.indexOf(exercise.name) === -1)
+        workouts.push(exercise.name);
     });
   });
 
