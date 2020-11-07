@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to deployed database or to localhost database called populatedb
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Routes
 // =============================================================
@@ -56,16 +56,16 @@ app.get("/api/workouts/range", (req, res) => {
 })
 
 app.get("/", (req, res) => {
-  res.sendFile("./public/index.html")
+  res.sendFile(path.resolve(__dirname, "./public/index.html"))
 });
 
 app.get("/exercise", (req, res) => {
-  res.sendFile("./public/exercise.html")
-})
+  res.sendFile(path.resolve(__dirname, "./public/exercise.html"))
+});
 
 app.get("/stats", (req, res) => {
-  res.sendFile("./public/stats.html")
-})
+  res.sendFile(path.resolve(__dirname, "./public/stats.html"))
+});
 // Starts the server to begin listening
 // =============================================================
 app.listen(PORT, () => {
