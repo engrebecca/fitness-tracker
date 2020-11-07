@@ -18,7 +18,15 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to deployed database or to localhost database called workout
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+
+);
 
 // API Routes
 // =============================================================
