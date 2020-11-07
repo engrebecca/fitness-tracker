@@ -33,6 +33,7 @@ function generatePalette() {
 
   return arr;
 }
+// Function to get all workout information to display in charts on the stats page
 function populateChart(data) {
   let durations = duration(data);
   let pounds = calculateTotalWeight(data);
@@ -46,6 +47,7 @@ function populateChart(data) {
   let pie = document.querySelector("#canvas3").getContext("2d");
   let pie2 = document.querySelector("#canvas4").getContext("2d");
 
+  // Line graph to show total workout minutes per day
   let lineChart = new Chart(line, {
     type: "line",
     data: {
@@ -94,6 +96,7 @@ function populateChart(data) {
     }
   });
 
+  // Bar graph to show total weight lifted per day
   let barChart = new Chart(bar, {
     type: "bar",
     data: {
@@ -147,6 +150,7 @@ function populateChart(data) {
     }
   });
 
+  // Pie chart to show total minutes per each exercise type per week
   let pieChart = new Chart(pie, {
     type: "pie",
     data: {
@@ -155,7 +159,6 @@ function populateChart(data) {
         {
           label: "Excercises Performed",
           backgroundColor: colors,
-          // data: durations
           data: Object.values(exerciseTime)
         }
       ]
@@ -168,6 +171,7 @@ function populateChart(data) {
     }
   });
 
+  // Donut chart to show total weight per each exercise type per week
   let donutChart = new Chart(pie2, {
     type: "doughnut",
     data: {
@@ -176,7 +180,6 @@ function populateChart(data) {
         {
           label: "Excercises Performed",
           backgroundColor: colors,
-          // data: pounds
           data: Object.values(exerciseWeight)
         }
       ]
@@ -256,7 +259,7 @@ function calcExerciseTime(data) {
 function calcExerciseWeight(data) {
   let exerciseWeight = {};
   // Go through each workout and add workout type/name to the workouts object if it's not already captured
-  // Add workout time as a value for each workout, if it already exists add it to the existing value to update total
+  // Add workout weight as a value for each workout, if it already exists add it to the existing value to update total
   data.forEach(workout => {
     workout.exercises.forEach(exercise => {
       if (exerciseWeight[exercise.name]) {
