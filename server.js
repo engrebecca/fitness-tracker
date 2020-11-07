@@ -55,7 +55,7 @@ app.get("/api/workouts", (req, res) => {
 
 // Route for getting workouts in range/ all workout data, fron stats.js front end
 app.get("/api/workouts/range", (req, res) => {
-  // Find all workouts for the past week and wort in descending order by day
+  // Find all workouts for the past week and sort in descending order by day
   db.Workout.find({ day: { $gte: new Date().setDate(new Date().getDate() - 7) } }).sort({ day: -1 })
     .then(workouts => {
       res.json(workouts);
