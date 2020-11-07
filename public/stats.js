@@ -37,7 +37,7 @@ function populateChart(data) {
   let durations = duration(data);
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
-  // let exerciseTime = calcExerciseTime(data);
+  let exerciseTime = calcExerciseTime(data);
   const colors = generatePalette();
 
   let line = document.querySelector("#canvas").getContext("2d");
@@ -154,8 +154,8 @@ function populateChart(data) {
         {
           label: "Excercises Performed",
           backgroundColor: colors,
-          data: durations
-          // data: Object.values(exerciseTime)
+          // data: durations
+          data: Object.values(exerciseTime)
         }
       ]
     },
@@ -231,17 +231,18 @@ function workoutNames(data) {
   return workouts;
 };
 
-// function calcExerciseTime() {
-//   let exerciseTime = {};
-//   // Go through each workout and add workout type/name to the workouts array if it's not already captured
-//   data.forEach(workout => {
-//     workout.exercises.forEach(exercise => {
-//       if (exerciseTime[exercise.type]) {
-//         exerciseTime[exercise.type] = exerciseTime[exercise.type] + exercise.duration
-//       } else {
-//         exerciseTime[exercise.type] = exercise.duration;
-//       }
-//     });
-//   });
-//   return exerciseTime;
-// };
+function calcExerciseTime(data) {
+  let exerciseTime = {};
+  // Go through each workout and add workout type/name to the workouts array if it's not already captured
+  data.forEach(workout => {
+    workout.exercises.forEach(exercise => {
+      if (exerciseTime[exercise.name]) {
+        exerciseTime[exercise.name] = exerciseTime[exercise.name] + exercise.duration
+      } else {
+        exerciseTime[exercise.name] = exercise.duration;
+      }
+    });
+  });
+  console.log(exerciseTime);
+  return exerciseTime;
+};
